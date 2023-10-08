@@ -24,7 +24,7 @@ class HandleUser {
       password: hashPassword,
     });
     await doc.save();
-    res.json({ success: true, message: "successfully registered." });
+    res.json({ success: true, message: "successfully registered.", doc });
   });
 
   static LoginUser = catchAsyncError(async (req, res, next) => {
@@ -76,7 +76,7 @@ class HandleUser {
   static UserLogout = catchAsyncError(async (req, res, next) => {
     res
       .cookie("token", "")
-      .json({ success: true, message: "User logout succesfully" });
+      .json({ success: true, message: "logout succesfully" });
   });
 }
 

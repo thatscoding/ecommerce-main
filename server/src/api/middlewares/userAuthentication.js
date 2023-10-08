@@ -3,7 +3,7 @@ import { verifyToken } from "../utils/generateToken.js";
 import { catchAsyncError } from "./catchAsyncErrors.js";
 
 export const userAuthentication = catchAsyncError(async (req, res, next) => {
-  const token = req.body.token;
+  const token = req.cookies.token;
   if (!token) {
     return next(new ErrorHandler("Token not found!", 401));
   }

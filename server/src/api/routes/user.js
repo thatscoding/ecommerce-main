@@ -10,7 +10,7 @@ router.route("/register").post(HandleUser.RegisterUser);
 router.route("/login").post(HandleUser.LoginUser);
 
 // protected route
-router.route("/profile").post(userAuthentication, HandleUser.UserProfile);
-router.route("/logout").post(userAuthentication, HandleUser.UserLogout);
+router.route("/profile").get(userAuthentication, HandleUser.UserProfile);
+router.route("/logout").get(userAuthentication, HandleUser.UserLogout);
 
 export default router;
