@@ -8,15 +8,19 @@ class HandleProduct {
     res.json({ success: true, message: "successfully Added." });
   });
 
-  static GetProductById = catchAsyncError(async (req, res, next) => {
-    const product = await Products.findOne(req.params.id);
-    res.json({ success: true, product });
+  static GetProductbyId = catchAsyncError(async (req, res, next) => {
+    const { id } = req.params;
+    if (id) {
+      const product = await Products.findOne({ _id: req.params.id });
+      res.json({ success: true, product });
+    }
   });
 
   static GetProductByCategory = catchAsyncError(async (req, res, next) => {
     const { category } = req.params;
 
-    const products = await Products.find({ category });
+    console.log(category);
+    const products = await Products.find({ category: category });
     res.json({ success: true, products });
   });
 
@@ -26,6 +30,8 @@ class HandleProduct {
   });
 
   static UpdateProduct = catchAsyncError(async (req, res, next) => {
+    console.log(req.params.id);
+    console.log(req.body);
     const product = await Products.updateOne(
       { _id: req.params.id },
       { $set: req.body }

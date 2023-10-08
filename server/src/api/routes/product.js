@@ -6,13 +6,14 @@ import HandleUser from "../controllers/user.js";
 const router = express.Router();
 
 // public route
-router.route("/all").get(HandleProduct.AllProducts);
-router.route("/:id").get(HandleProduct.GetProductById);
-router.route("/:category").get(HandleProduct.GetProductByCategory);
+router.route("/byCategory/:category").get(HandleProduct.GetProductByCategory);
+
+router.route("/").get(HandleProduct.AllProducts);
+router.route("/:id").get(HandleProduct.GetProductbyId);
 
 // protected route
 router.route("/").post(userAuthentication, HandleProduct.AddProduct);
-router.route("/").put(userAuthentication, HandleProduct.UpdateProduct);
-router.route("/").delete(userAuthentication, HandleProduct.DeleteProduct);
+router.route("/:id").put(userAuthentication, HandleProduct.UpdateProduct);
+router.route("/:id").delete(userAuthentication, HandleProduct.DeleteProduct);
 
 export default router;

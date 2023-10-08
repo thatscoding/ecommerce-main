@@ -34,7 +34,7 @@ server.get("/", (req, res) => {
 
 server.use("/v1/users", UserRouter);
 server.use("/v1/products", ProductRouter);
-server.use("/v1/categoty", ProductCategotyRouter);
+server.use("/v1/category", ProductCategotyRouter);
 
 server.use(handleErrorMiddleware);
 

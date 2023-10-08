@@ -3,12 +3,22 @@ import { ProductCategory } from "../modals/productCategory.js";
 
 class HandleProductCategory {
   static AddCategoryItem = catchAsyncError(async (req, res, next) => {
-    const doc = await ProductCategory.update(
-      {},
-      { $push: { productCategory: req.body.category } }
+    const categoryToAdd = req.body.category;
+    console.log(categoryToAdd);
+    const id = "6522e9d93f7bc296436979f8";
+    const categoryList = await ProductCategory.findOneAndUpdate(
+      {
+        _id: id,
+      },
+      {
+        $push: { categories: categoryToAdd },
+      }
     );
-    await doc.save();
-    res.json({ success: true, message: "successfully Added.", doc });
+
+    res.json({
+      success: true,
+      message: "successfully created.",
+    });
   });
 
   static AllCategoryItem = catchAsyncError(async (req, res, next) => {
@@ -17,26 +27,24 @@ class HandleProductCategory {
   });
 
   static UpdateCategoryItem = catchAsyncError(async (req, res, next) => {
-    const doc = await ProductCategory.update(
-      { productCategory: req.body.updateItem }, // Find documents where myArray contains "banana"
-      { $set: { "productCategory.$": req.body.Item } } // Update the matching element to "grape"
+    const doc = await ProductCategory.updateOne(
+      { categories: req.body.updateItem }, // Find documents where myArray contains "banana"
+      { $set: { "categories.$": req.body.Item } } // Update the matching element to "grape"
     );
     res.json({
       success: true,
       message: "product updated successfully",
-      doc,
     });
   });
 
   static DeleteCategoryItem = catchAsyncError(async (req, res, next) => {
-    const doc = await ProductCategory.update(
+    const doc = await ProductCategory.updateOne(
       {},
-      { $pull: { productCategory: req.body.item } }
+      { $pull: { categories: req.body.category } }
     );
     res.json({
       success: true,
       message: "product deleted successfully",
-      doc,
     });
   });
 }

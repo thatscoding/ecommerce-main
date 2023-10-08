@@ -4,9 +4,8 @@ const ProductSchema = new mongoose.Schema(
   {
     productName: { type: String, required: [true, "Product name is required"] },
     price: {
-      type: String,
+      type: Number,
       required: [true, "product price is required"],
-      unique: true,
     },
     description: {
       type: String,
@@ -18,6 +17,7 @@ const ProductSchema = new mongoose.Schema(
     },
     category: {
       type: String,
+      required: [true, "Product Category is required"],
     },
   },
   { timestamps: true }
