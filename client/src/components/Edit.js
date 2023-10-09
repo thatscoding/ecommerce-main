@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
 import { RegisterUser } from "../services/userApi";
-import { AddProduct, GetProductById } from "../services/productApi";
+import { GetProductById, UpdateProduct } from "../services/productApi";
 
 function Edit() {
   const { register, handleSubmit, reset } = useForm();
@@ -10,6 +10,7 @@ function Edit() {
     productName: "",
     price: 0,
     category: "",
+    stocks: 0,
     description: "",
   });
   const navigate = useNavigate();
@@ -36,7 +37,7 @@ function Edit() {
 
   const SubmitForm = async () => {
     console.log(product);
-    const res = await AddProduct(product);
+    const res = await UpdateProduct(product, id);
 
     alert(res?.data.message);
 
@@ -94,6 +95,26 @@ function Edit() {
                     id="price"
                     name="price"
                     value={product?.price}
+                    onChange={(e) => handleChange(e)}
+                    required
+                    className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                  />
+                </div>
+              </div>
+
+              <div className="p-2 w-full sm:w-full">
+                <div className="relative">
+                  <label
+                    htmlFor="email"
+                    className="leading-7 text-sm text-gray-600"
+                  >
+                    Stocks
+                  </label>
+                  <input
+                    type="number"
+                    id="stocks"
+                    name="stocks"
+                    value={product?.stocks}
                     onChange={(e) => handleChange(e)}
                     required
                     className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"

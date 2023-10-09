@@ -31,6 +31,17 @@ export const AddProduct = async (data) => {
   }
 };
 
+export const UpdateProduct = async (data, id) => {
+  try {
+    console.log(API_URL);
+    return await axios.put(`${API_URL}/products/${id}`, data, {
+      withCredentials: true,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const DeleteProductById = async (id) => {
   try {
     console.log(API_URL);
