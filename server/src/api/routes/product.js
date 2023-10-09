@@ -6,7 +6,7 @@ import HandleUser from "../controllers/user.js";
 const router = express.Router();
 
 // public route
-router.route("/byCategory/:category").get(HandleProduct.GetProductByCategory);
+router.route("/byCategory").post(HandleProduct.GetProductByCategory);
 
 router.route("/").get(HandleProduct.AllProducts);
 router.route("/:id").get(HandleProduct.GetProductbyId);

@@ -10,15 +10,15 @@ class HandleProduct {
 
   static GetProductbyId = catchAsyncError(async (req, res, next) => {
     const { id } = req.params;
+    console.log(id);
     if (id) {
-      const product = await Products.findOne({ _id: req.params.id });
+      const product = await Products.findOne({ _id: id });
       res.json({ success: true, product });
     }
   });
 
   static GetProductByCategory = catchAsyncError(async (req, res, next) => {
-    const { category } = req.params;
-
+    const { category } = req.body;
     console.log(category);
     const products = await Products.find({ category: category });
     res.json({ success: true, products });

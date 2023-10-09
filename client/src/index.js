@@ -3,12 +3,15 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import { UserContextProvider } from "./UserContext";
+import { CartProvider } from "./CartContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <UserContextProvider>
-      <App />
+      <CartProvider>
+        <App />
+      </CartProvider>
     </UserContextProvider>
   </React.StrictMode>
 );

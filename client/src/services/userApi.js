@@ -24,7 +24,9 @@ export const LoginUser = async (data) => {
 
 export const UserProfile = async () => {
   try {
-    return await axios.get(`${API_URL}/users/profile`);
+    return await axios.get(`${API_URL}/users/profile`, {
+      withCredentials: true,
+    });
   } catch (error) {
     console.log(error);
   }

@@ -11,18 +11,16 @@ function Hearder() {
   useEffect(() => {
     const fetchDetails = async () => {
       const res = await UserProfile();
-      if (res.data.success == false) {
-        navigate("/");
-      }
-      if (userInfo.userType === "user") {
+
+      if (userInfo?.userType === "user") {
         navigate("/");
       }
     };
     fetchDetails();
-  }, [userInfo]);
+  }, [userInfo, navigate]);
 
-  const username = userInfo?.username;
-  const userType = userInfo?.userType;
+  const username = userInfo?.username || null;
+  const userType = userInfo?.userType || null;
 
   const logout = async () => {
     await Logout();

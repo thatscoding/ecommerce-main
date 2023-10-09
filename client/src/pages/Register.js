@@ -13,7 +13,7 @@ function Register() {
     alert(res?.data.message);
     console.log(res?.data.message);
 
-    if (res?.data.success == true) {
+    if (res?.data.success === true) {
       reset();
       navigate("/login");
     }

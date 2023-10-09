@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import Carts from "../components/Carts";
 import Products from "../components/Products";
 

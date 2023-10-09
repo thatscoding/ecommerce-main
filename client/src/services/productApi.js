@@ -11,10 +11,19 @@ export const GetAllProducts = async (data) => {
   }
 };
 
-export const LoginUser = async (data) => {
+export const GetProductById = async (id) => {
   try {
-    console.log(`${API_URL}/user/login`);
-    return await axios.post(`${API_URL}/users/login`, data, {
+    console.log(API_URL);
+    return await axios.get(`${API_URL}/products/${id}`);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const AddProduct = async (data) => {
+  try {
+    console.log(API_URL);
+    return await axios.post(`${API_URL}/products`, data, {
       withCredentials: true,
     });
   } catch (error) {
@@ -22,17 +31,10 @@ export const LoginUser = async (data) => {
   }
 };
 
-export const UserProfile = async () => {
+export const DeleteProductById = async (id) => {
   try {
-    return await axios.get(`${API_URL}/users/profile`);
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-export const Logout = async () => {
-  try {
-    return await axios.get(`${API_URL}/users/logout`, {
+    console.log(API_URL);
+    return await axios.delete(`${API_URL}/products/${id}`, {
       withCredentials: true,
     });
   } catch (error) {

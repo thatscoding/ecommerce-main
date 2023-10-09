@@ -6,6 +6,7 @@ export const UserContextProvider = ({ children }) => {
   const [userInfo, setUserInfo] = useState(
     JSON.parse(localStorage.getItem("useInfo"))
   );
+
   return (
     <UserContext.Provider value={{ userInfo, setUserInfo }}>
       {children}
