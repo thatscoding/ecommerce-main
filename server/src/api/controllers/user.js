@@ -9,12 +9,12 @@ class HandleUser {
     const { username, email, password } = req.body;
 
     if (!username || !email || !password) {
-      return next(new ErrorHandler("All fields are required.", 400));
+      return next(new ErrorHandler("All fields are required.", 200));
     }
     const user = await User.findOne({ email });
 
     if (user) {
-      return next(new ErrorHandler("Email Already Registered.", 400));
+      return next(new ErrorHandler("Email Already Registered.", 200));
     }
 
     const hashPassword = await generatePassword(password);
@@ -31,18 +31,18 @@ class HandleUser {
     const { email, password } = req.body;
     console.log(email, password);
     if (!email || !password) {
-      return next(new ErrorHandler("All fields are required.", 400));
+      return next(new ErrorHandler("All fields are required.", 200));
     }
     const user = await User.findOne({ email });
     if (!user) {
-      return next(new ErrorHandler("Invalid email or password.", 400));
+      return next(new ErrorHandler("Invalid email or password.", 200));
     }
 
     const isPasswordMatch = await verifyPassword(password, user.password);
     console.log(isPasswordMatch);
 
     if (!isPasswordMatch) {
-      return next(new ErrorHandler("Invalid email or password.", 400));
+      return next(new ErrorHandler("Invalid email or password.", 200));
     }
     const payload = {
       userId: user._id,

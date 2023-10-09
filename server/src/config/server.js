@@ -18,8 +18,14 @@ process.on("uncaughtException", (err) => {
   process.exit(1);
 });
 
+const corsOptions = {
+  origin: "http://localhost:3000",
+  credentials: true, //access-control-allow-credentials:true
+  optionSuccessStatus: 200,
+};
+
 // middlewares
-server.use(cors());
+server.use(cors(corsOptions));
 server.use(cookieParser());
 server.use(express.json());
 server.use(express.urlencoded({ extended: true }));
