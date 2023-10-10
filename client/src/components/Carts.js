@@ -14,6 +14,7 @@ function Carts() {
 
   const [open, setOpen] = useState(false);
   const [isopen, setIsOpen] = useState(false);
+  const [reciept, setReciept] = useState(false);
 
   const cancelButtonRef = useRef(null);
 
@@ -149,7 +150,10 @@ function Carts() {
             >
               <span>Cancel Sale</span>
             </div>
-            <div className="bg-green-600 h-10 flex justify-center items-center w-full text-white uppercase cursor-pointer">
+            <div
+              onClick={() => setReciept(true)}
+              className="bg-green-600 h-10 flex justify-center items-center w-full text-white uppercase cursor-pointer"
+            >
               <span>Process Sale</span>
             </div>
           </div>
@@ -302,6 +306,93 @@ function Carts() {
                       }}
                     >
                       Okay
+                    </button>
+                  </div>
+                </Dialog.Panel>
+              </Transition.Child>
+            </div>
+          </div>
+        </Dialog>
+      </Transition.Root>
+
+      <Transition.Root show={reciept} as={Fragment}>
+        <Dialog
+          as="div"
+          className="relative z-10"
+          initialFocus={cancelButtonRef}
+          onClose={setReciept}
+        >
+          <Transition.Child
+            as={Fragment}
+            enter="ease-out duration-300"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
+            <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
+          </Transition.Child>
+
+          <div className="fixed inset-0 z-10 w-screen ">
+            <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+              <Transition.Child
+                as={Fragment}
+                enter="ease-out duration-300"
+                enterFrom="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+                enterTo="opacity-100 translate-y-0 sm:scale-100"
+                leave="ease-in duration-200"
+                leaveFrom="opacity-100 translate-y-0 sm:scale-100"
+                leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+              >
+                <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+                  <div className="flex flex-col ">
+                    <h1 className="w-full bg-gray-700 text-white px-4 py-1">
+                      Reciept
+                    </h1>
+                    <div className="flex flex-col">
+                      <p className="text-center my-2 ">Sale No : 100120</p>
+                      <div className="px-8 flex flex-col gap-y-2">
+                        <p>{new Date(8.64e15).toString()}</p>
+
+                        <table>
+                          <tr>
+                            <th>Product</th>
+                            <th>Quantity</th>
+                            <th>Sub total</th>
+                          </tr>
+                          {cart.items?.map((item) => (
+                            <tr className="">
+                              <td>{item.productName}</td>
+                              <td>{item.quantity}</td>
+                              <td>{item.total}</td>
+                            </tr>
+                          ))}
+                          <h1>---------------------------------</h1>
+
+                          <div className="flex px-4 justify-between">
+                            <p>Grand Total</p>
+                            <p>{cart.items.length} items</p>
+                          </div>
+                          <h1>----------------------------------</h1>
+                          <div className="flex px-4 justify-between">
+                            <p>Total Items</p>
+                            <p>{subtotal}</p>
+                          </div>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="bg-gray-50 px-4 py-3 flex justify-center w20 sm:px-6">
+                    <button
+                      type="button"
+                      className=" w-1/2 justify-center  rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 "
+                      onClick={() => {
+                        setReciept(false);
+                        clearCart();
+                      }}
+                    >
+                      Close
                     </button>
                   </div>
                 </Dialog.Panel>

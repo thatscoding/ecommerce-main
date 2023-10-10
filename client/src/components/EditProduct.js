@@ -49,7 +49,7 @@ function EditProduct() {
       setProduct(res.data.product);
     };
     getProdById();
-  }, []);
+  }, [id]);
 
   const SubmitForm = async () => {
     console.log(product);
