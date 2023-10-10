@@ -6,4 +6,16 @@ td, th {
     text-align: left;
     padding-right: 30px;
   }
+
+  .cardbody{
+    .showText{
+      display: hidden; 
+    }
+  }
+
+  .cardbody:hover{
+    .showText{
+      display: block; 
+    }
+  }
   

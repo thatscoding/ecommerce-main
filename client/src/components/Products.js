@@ -6,12 +6,15 @@ import {
   GetProductsByCategory,
 } from "../services/productCategoryApi";
 import { useCart } from "../CartContext";
+import CardComponent from "./CardComponent";
+import { HashLoader } from "react-spinners";
 
 function Products() {
   const [searchTerm, setSearchTerm] = useState("");
 
   const [productItems, setProductItems] = useState();
   const [productCategory, setProductCategory] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   const { cart, addToCart, updateCartItem } = useCart();
 
@@ -20,6 +23,7 @@ function Products() {
       const res = await GetAllProducts();
       if (res?.data) {
         setProductItems(res.data.products);
+        setLoading(false);
       }
       console.log(res?.data?.products);
     }
@@ -29,9 +33,11 @@ function Products() {
 
   useEffect(() => {
     async function fetchProductCategory() {
+      setLoading(true);
       const res = await GetProductCategory();
       if (res?.data?.success === true) {
         setProductCategory(res?.data?.categorylist[0]?.categories);
+        setLoading(false);
       }
       // console.log(res?.data?.categorylist[0]?.categories);
     }
@@ -40,18 +46,22 @@ function Products() {
   }, [setProductCategory]);
 
   async function prodByCategory(category) {
+    setLoading(true);
     console.log(category);
     const res = await GetProductsByCategory({ category: category });
     if (res?.data) {
       setProductItems(res.data.products);
+      setLoading(false);
     }
     console.log(res?.data?.products);
   }
 
   async function AllProductItems() {
+    setLoading(true);
     const res = await GetAllProducts();
     if (res?.data) {
       setProductItems(res.data.products);
+      setLoading(false);
     }
   }
 
@@ -77,6 +87,7 @@ function Products() {
   };
 
   const handleSearchChange = async (event) => {
+    setLoading(true);
     setSearchTerm(event.target.value);
     const res = await GetAllProducts();
     if (res?.data) {
@@ -84,6 +95,7 @@ function Products() {
         product.productName.toLowerCase().includes(searchTerm.toLowerCase())
       );
       setProductItems(filteredProducts);
+      setLoading(false);
     }
   };
 
@@ -121,20 +133,18 @@ function Products() {
           />
         </div>
 
-        <div className="p-4 flex flex-wrap gap-4 h-[60vh] overflow-auto justify-center">
-          {productItems?.map((product) => (
-            <div
-              className=" h-32 w-32 rounded-lg bg-orange-400  flex flex-col items-center justify-center text-white shadow-xl"
-              onClick={() => AddItemToCart(product)}
-            >
-              <p className="text-base text-center ">{product.productName}</p>
-              <p className="text-sm">{product.price}</p>
-              <p className="text-sm text-center line-clamp-1">
-                {product.description}
-              </p>
-            </div>
-          ))}
-        </div>
+        {loading ? (
+          <div className="flex w-full h-[60vh] justify-center items-center">
+            <HashLoader color="#36d7b7" />
+          </div>
+        ) : (
+          <div className="p-4 flex flex-wrap gap-4 h-[60vh] overflow-auto justify-center">
+            {productItems.length === 0 && <h1>No items found</h1>}
+            {productItems?.map((product) => (
+              <CardComponent product={product} AddItemToCart={AddItemToCart} />
+            ))}
+          </div>
+        )}
       </div>
     </section>
   );
