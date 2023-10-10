@@ -24,9 +24,11 @@ function ManageProduct() {
 
   useEffect(() => {
     async function AllProductItems() {
+      setLoading(true);
       const res = await GetAllProducts();
       if (res?.data) {
         setProductItems(res.data.products);
+        setLoading(false);
       }
       // console.log(productItems);
     }
@@ -34,6 +36,8 @@ function ManageProduct() {
   }, [setProductItems]);
 
   const DeleteProduct = async (id) => {
+    setLoading(true);
+
     const res = await DeleteProductById(id);
     console.log(res);
     if (res?.data?.success === true) {
@@ -42,6 +46,7 @@ function ManageProduct() {
     const res2 = await GetAllProducts();
     if (res2?.data) {
       setProductItems(res2.data.products);
+      setLoading(false);
     }
   };
 
