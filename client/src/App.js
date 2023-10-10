@@ -5,7 +5,8 @@ import Home from "./pages/Home";
 import Dashboard from "./pages/Dashboard";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import Edit from "./components/Edit";
+import CreateProduct from "./components/CreateProduct";
+import EditProduct from "./components/EditProduct";
 
 const App = () => {
   return (
@@ -16,7 +17,8 @@ const App = () => {
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/edit/:id" element={<Edit />} />
+          <Route path="/editProduct/:id" element={<EditProduct />} />
+          <Route path="/addProduct" element={<CreateProduct />} />
 
           <Route path="*" element={<h1>No page found</h1>} />
         </Route>

@@ -1,23 +1,20 @@
 import React, { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { AddProduct } from "../services/productApi";
 import { UserProfile } from "../services/userApi";
-import { GetProductById, UpdateProduct } from "../services/productApi";
 import { HashLoader } from "react-spinners";
 
-function EditProduct() {
-  const { reset } = useForm();
+function CreateProduct() {
   const [product, setProduct] = useState({
     productName: "",
     price: 0,
-    category: "",
+    category: "Select ....",
     stocks: 0,
     description: "",
   });
   const [loading, setLoading] = useState(true);
 
   const navigate = useNavigate();
-  const { id } = useParams();
 
   useEffect(() => {
     const auth = async () => {
@@ -36,32 +33,16 @@ function EditProduct() {
     setProduct({ ...product, [e.target.name]: e.target.value });
   };
 
-  // const [selectedOption, setSelectedOption] = useState("");
-
-  // const handleSelectChange = (event) => {
-  //   setSelectedOption(event.target.value);
-  // };
-
-  useEffect(() => {
-    const getProdById = async () => {
-      const res = await GetProductById(id);
-      console.log(res);
-      setProduct(res.data.product);
-    };
-    getProdById();
-  }, []);
-
   const SubmitForm = async () => {
     console.log(product);
-    const res = await UpdateProduct(product, id);
+    const res = await AddProduct(product);
 
     alert(res?.data.message);
 
     console.log(res?.data.message);
 
     if (res?.data.success === true) {
-      reset();
-      navigate("/");
+      navigate("/dashboard");
     }
   };
   return (
@@ -75,7 +56,7 @@ function EditProduct() {
           <div className="container px-5 py-24 mx-auto">
             <div className="flex flex-col text-center w-full mb-12">
               <h1 className="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">
-                Create/Edit Product
+                Create New Product
               </h1>
               <p className="lg:w-2/3 mx-auto leading-relaxed text-base">
                 Whatever cardigan tote bag tumblr hexagon brooklyn asymmetrical
@@ -210,4 +191,4 @@ function EditProduct() {
   );
 }
 
-export default EditProduct;
+export default CreateProduct;

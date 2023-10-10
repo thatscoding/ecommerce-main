@@ -2,14 +2,11 @@ import React, { useEffect, useState } from "react";
 import { UserProfile } from "../services/userApi";
 import { useNavigate } from "react-router-dom";
 import { HashLoader } from "react-spinners";
-import EditProduct from "../components/EditProduct";
-import EditCategory from "../components/EditCategory";
+import ManageProduct from "../components/ManageProduct";
 
 function Dashboard() {
-  const [handleClick, setHandleClick] = useState("");
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
-  const [visits, setVisits] = useState(0);
 
   useEffect(() => {
     const auth = async () => {
@@ -46,21 +43,20 @@ function Dashboard() {
                 Dashboard
               </h1>
               <ul className="flex gap-4 font-bold bg-gray-400 py-2 px-4 text-white mb-8">
-                <li
-                  onClick={() => setHandleClick("products")}
-                  className="hover:text-red-600 ease-in-out duration-500"
-                >
+                <li className="hover:text-red-600 ease-in-out duration-500">
                   Products
                 </li>
-                <li
-                  onClick={() => setHandleClick("category")}
-                  className="hover:text-red-600 ease-in-out duration-500"
-                >
-                  Category
+                <li>
+                  <h2
+                    onClick={() => navigate("/addProduct")}
+                    className="cursor-pointer hover:text-red-400 font-bold"
+                  >
+                    Create New Product
+                  </h2>
                 </li>
               </ul>
 
-              {handleClick === "products" ? <EditProduct /> : null}
+              <ManageProduct />
             </div>
           </div>
         </section>
